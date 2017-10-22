@@ -12,7 +12,7 @@ from kivy.atlas import Atlas
 from config import atoms
 from engine import Board
 
-atlas = Atlas('assets/defaulttheme.atlas')
+atlas = Atlas('assets/defaulttheme.atlas') # TODO: desaturate button press
 
 # Fixed crashing on android!
 Builder.load_file('main.kv')
@@ -38,6 +38,7 @@ class Scheme:
 
         self.red = get_color_from_hex('D66255')
         self.yellow = get_color_from_hex('EFC45F')
+        self.green = get_color_from_hex('7AF996')
 
         self.next_color = 0
 
@@ -181,9 +182,11 @@ class GameScreen(Screen):
                 item.atom = space.atom
                 item.guess = False
                 item.correct = False
+                item.disabled = False
 
             elif isinstance(item, Marker) is True:
                 item.text = ''
+                item.disabled = False
 
         for i in range(1, 6):
             self.ids['tracker' + str(i)].color = scheme.white
@@ -228,7 +231,6 @@ class GameScreen(Screen):
 
     def highlight(self, number, state):
         """Toggle highlighting of marker's link."""
-        # TODO: add connecting line between markers
 
         marker = game.markers[number]
         link = game.markers[marker.link]
@@ -237,14 +239,12 @@ class GameScreen(Screen):
 
         # Toggle highlighting on
         if state == 'on':
-            ui_link.text = '[b]' + ui_link.text + '[/b]'
-            ui_link.markup = True
+            ui_link.old_color = ui_link.color
+            ui_link.color = scheme.white
 
         # Toggle highlighting off
         elif state == 'off':
-            # Slice off the bold markup
-            ui_link.text = ui_link.text[3:-4]
-            ui_link.markup = False
+            ui_link.color = ui_link.old_color
 
     def end_game(self):
         """End the game! Update final score and reveal results."""
@@ -260,22 +260,25 @@ class GameScreen(Screen):
             missed = 0
             board = self.ids.board
             for item in board.children:
+                # Disable spaces to prevent them from being pressed.
+                item.disabled = True
+                item.disabled_color = item.color
                 if isinstance(item, Space) is True:
                     number = int(item.number)
                     space = game.spacelist[number]
                     # Guessed right
                     if space.correct is True:
-                        item.text = '@'
-                        item.color = scheme.green
+                        item.text = 'O'
+                        item.color = item.disabled_color = scheme.green
                     # Guessed wrong
                     elif space.guess is True and space.correct is False:
                         item.text = 'X'
-                        item.color = scheme.red
+                        item.color = item.disabled_color = scheme.black
                         missed += 1
                     # Missed atom
                     elif space.atom is True and space.guess is False:
-                        item.text = '@'
-                        item.color = scheme.red
+                        item.text = 'O'
+                        item.color = item.disabled_color = scheme.red
 
             for i in range(correct):
                 self.ids['tracker' + str(i + 1)].color = scheme.green
@@ -284,14 +287,14 @@ class GameScreen(Screen):
             if missed == 0:
                 won = 1
                 text = 'you found them all!'
-                self.ids.end_button.text = text
             elif missed == 1:
                 text = 'you missed an atom!'
             elif missed == 5:
-                text = 'you missed all the atoms!?'
+                text = 'you missed \'em all!'
             else:
                 text = 'you missed ' + str(missed) + ' atoms!'
-                self.ids.end_button.text = text
+
+            self.ids.end_button.text = text
 
         # Prep and send to end screen
         elif game.game_over is True:
@@ -331,7 +334,7 @@ class Space(Button):
         if self.guess is False:
             self.text = ''
         elif self.guess is True:
-            self.text = '@'
+            self.text = 'O'
             self.color = scheme.red
 
         # Update
