@@ -1,5 +1,6 @@
 import kivy
 import datetime
+import platform
 from kivy.app import App
 from kivy.core.window import Window
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -13,10 +14,11 @@ from kivy.atlas import Atlas
 from config import atoms
 from engine import Board
 
+# TODO: Android crashes on end screen
+# TODO: Images small on android instruction screen
+# TODO: Add padding between spaces and markers for more visible grid
+
 atlas = Atlas('assets/defaulttheme.atlas')
-# TODO: add game timer
-# TODO: add highscore log
-# TODO: resize fonts
 # "Your fastest game ever" "Your fastest game since X"
 
 # Fixed crashing on android!
@@ -453,8 +455,9 @@ class BlackboxApp(App):
         global game
         game = self.game
 
-        # Set window size
-        Window.size = 540, 960
+        # Set window size on desktop
+        if platform.system == 'Windows':
+            Window.size = 540, 960
 
         # Derive font sizes from window height
         self.window_height = Window.height
