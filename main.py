@@ -12,7 +12,7 @@ from kivy.atlas import Atlas
 from config import atoms
 from engine import Board
 
-atlas = Atlas('assets/defaulttheme.atlas') # TODO: desaturate button press
+atlas = Atlas('assets/defaulttheme.atlas')
 # TODO: add game timer
 # TODO: add highscore log
 # TODO: resize fonts
