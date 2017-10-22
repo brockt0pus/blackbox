@@ -264,8 +264,6 @@ class Board:
         If the ray left the board, the numbers of origin and exit are given markers of matching letters.
         """
 
-        # TODO: check if symbols is capable of outputting enough letters
-
         # If marker left the board
         if end != 0:
             # Get a letter (not 'R' or 'H' which indicate other results)

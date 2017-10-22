@@ -66,6 +66,7 @@
             size_hint: 1, 2
         MenuButton:
             text: 'start'
+            on_release: root.manager.get_screen('game_screen').timer()
             on_release: root.manager.current = 'game_screen'
         MenuButton:
             text: 'how?'
@@ -133,8 +134,16 @@
         orientation: 'vertical'
 
         Label:
-            size_hint_y: 0.7
+            size_hint_y: 0.15
+
+        Label:
+            size_hint_y: 0.35
             id: end_score
+            font_size: app.largest
+
+        Label:
+            size_hint_y: 0.35
+            id: time
             font_size: app.largest
 
         MenuButton:

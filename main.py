@@ -1,4 +1,5 @@
 import kivy
+import datetime
 from kivy.app import App
 from kivy.core.window import Window
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -119,6 +120,11 @@ class GameScreen(Screen):
 
     def __init__(self, **kwargs):
         super(Screen, self).__init__(**kwargs)
+
+        # Variables for timer
+        self.start = None
+        self.end = None
+        self.time = None
 
         # Populate game board
         board = self.ids.board
@@ -263,6 +269,7 @@ class GameScreen(Screen):
 
             correct = game.endscore()
             self.update()
+            self.time = self.timer()
 
             # Loop through every space and reveal atoms and guess results.
             won = 0
@@ -309,8 +316,28 @@ class GameScreen(Screen):
         elif game.game_over is True:
             end_screen = sm.get_screen('end_screen')
             end_screen.ids.end_score.text = str(game.score)
+            end_screen.ids.time.text = self.time
 
             sm.current = 'end_screen'
+
+    def timer(self):
+        """Starts and ends the game timer. Returns formatted elapsed time on ending."""
+
+        # Start timer, if it hasn't been started already
+        if self.start is None:
+            self.start = datetime.datetime.now()
+            return 0
+        # End the timer, calculate elapsed time, format it, and return it
+        else:
+            self.end = datetime.datetime.now()
+            elapsed = self.end - self.start
+            minutes, seconds = divmod(elapsed.total_seconds(), 60)
+            minutes = int(minutes)
+            seconds = int(seconds)
+            if seconds < 10:
+                seconds = '0' + str(seconds)
+            result = str(minutes) + ':' + str(seconds)
+            return result
 
 
 class EndScreen(Screen):
