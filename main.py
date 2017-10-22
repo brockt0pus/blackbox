@@ -13,6 +13,10 @@ from config import atoms
 from engine import Board
 
 atlas = Atlas('assets/defaulttheme.atlas') # TODO: desaturate button press
+# TODO: add game timer
+# TODO: add highscore log
+# TODO: resize fonts
+# "Your fastest game ever" "Your fastest game since X"
 
 # Fixed crashing on android!
 Builder.load_file('main.kv')
@@ -418,7 +422,7 @@ class BlackboxApp(App):
         game = self.game
 
         # Set window size
-        Window.size = 360, 640
+        Window.size = 540, 960
 
         # Declare screen manager and add screens
         sm.add_widget(MenuScreen(name='menu_screen'))
