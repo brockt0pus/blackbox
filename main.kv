@@ -51,7 +51,7 @@
 <MenuButton@Button>
     background_color: 0, 0, 0, 0
     size_hint: 1, 0.8
-    font_size: '24dp'
+    font_size: app.medium
 
 <MenuScreen>:
     name: 'menu_screen'
@@ -62,7 +62,7 @@
         Label:
             text: 'BlackBox'
             font_name: 'assets/superscript.ttf'
-            font_size: '32dp'
+            font_size: app.large
             size_hint: 1, 2
         MenuButton:
             text: 'start'
@@ -85,7 +85,7 @@
         # Score
         Label:
             id: score
-            font_size: '52dp'
+            font_size: app.large
             text: '0'
             size_hint_y: 0.25
 
@@ -101,7 +101,7 @@
             id: end_button
             size_hint_x: 1
             size_hint_y: 0.15
-            font_size: '32dp'
+            font_size: app.medium
             text: 'submit'
             opacity: 0
             disabled: True
@@ -135,13 +135,13 @@
         Label:
             size_hint_y: 0.7
             id: end_score
-            font_size: '62dp'
+            font_size: app.largest
 
         MenuButton:
             id: play_again
             size_hint_y: 0.15
             text: 'play again?'
-            font_size: '32dp'
+            font_size: app.medium
 
             on_press: root.reset()
             on_release: app.sm.current = 'game_screen'
@@ -149,7 +149,7 @@
             id: confused
             size_hint_y: 0.15
             text: 'reinstruct me'
-            font_size: '32dp'
+            font_size: app.medium
 
             on_press: root.reset()
             on_release: app.sm.current = 'instruct_screen'
@@ -173,7 +173,9 @@
 <Instructions@Label>
     text_size: root.width/1.1, None
     font_name: 'assets/greenscreen.ttf'
-    font_size: '16dp'
+    font_size: app.tiny
+    size: self.texture_size
+    markup: True
 
 <InstructionScreen>:
     name: 'instruct_screen'
@@ -186,40 +188,41 @@
             Instructions:
                 text: root.objective_text1
             Image:
-                size_hint_y: 2
                 source: "assets/objective1.png"
+                size_hint_y: 2
             Instructions:
                 text: root.objective_text2
             NextPage:
                 on_press: root.ids.page_layout.page += 1
             Label:
-                size_hint_y: 0.1
+                size_hint_y: 0.15
 
 
         Page:
             Instructions:
                 text: root.hit_text1
             Image:
-                size_hint_y: 2
                 source: "assets/hit.png"
+                size_hint_y: 2
             Instructions:
                 text: root.hit_text2
-                size_hint_y: 0.4
             NextPage:
                 on_press: root.ids.page_layout.page += 1
             Label:
-                size_hint_y: 0.1
+                size_hint_y: 0.15
 
         Page:
             Instructions:
-                text: root.detour_text
+                text: root.detour_text1
             Image:
                 size_hint_y: 2
                 source: "assets/detour.png"
+            Instructions:
+                text: root.detour_text2
             NextPage:
                 on_press: root.ids.page_layout.page += 1
             Label:
-                size_hint_y: 0.1
+                size_hint_y: 0.15
 
         Page:
             Instructions:
@@ -232,7 +235,7 @@
             NextPage:
                 on_press: root.ids.page_layout.page += 1
             Label:
-                size_hint_y: 0.1
+                size_hint_y: 0.15
 
         Page:
             Instructions:
@@ -245,7 +248,7 @@
             NextPage:
                 on_press: root.ids.page_layout.page += 1
             Label:
-                size_hint_y: 0.1
+                size_hint_y: 0.15
 
         Page:
             Instructions:
@@ -256,18 +259,17 @@
             Instructions:
                 text: root.miss_text2
             NextPage:
-                on_press: root.manager.current = 'game_screen'
+                on_press: root.ids.page_layout.page += 1
             Label:
-                size_hint_y: 0.1
+                size_hint_y: 0.15
 
         Page:
             Instructions:
                 text: root.scoring_text1
             Instructions:
                 text: root.scoring_text2
-            Button:
+            NextPage:
                 text: 'I\'m ready.'
-                size_hint_y: 0.1
-                on_press:  root.manager.current = 'menu_screen'
+                on_press:  root.manager.current = 'game_screen'
             Label:
-                size_hint_y: 0.1
+                size_hint_y: 0.15

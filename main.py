@@ -73,41 +73,46 @@ class MenuScreen(Screen):
 class InstructionScreen(Screen):
 
     objective_text1 = StringProperty(
-        'This is the black box. You cannot see inside of it, but five atoms are hidden within.\n\n'
-        'Find the atoms by beaming rays into the black box.')
+        'This is the black box. You cannot see inside of it, but [color=f15f5c]five atoms are hidden within.[/color]'
+        '\n\nFind the atoms by [color=fbdd64]beaming rays[/color] into the black box.')
     objective_text2 = StringProperty(
-        'When you think you\'ve found an atom, tap on the board to mark the spot. Find all five atoms to win.')
+        'When you think you\'ve found an atom, tap on the board to mark the spot. '
+        '[color=6bc499]Find all five atoms to win.[/color]')
     hit_text1 = StringProperty(
-        'When you send a ray into the box, it moves in a straight line until hitting an atom, encountering an atomic '
-        'field, or leaving the box. You cannot see the rays as they travel through the black box, but their fates are '
-        'logged on its outside.')
+        'When you send a ray into the box, it moves in a straight line until [color=f15f5c]hitting an atom,[/color]'
+        ' [color=f4a261]encountering an atomic field[/color], [color=92d5e6]or leaving the box.[/color]')
     hit_text2 = StringProperty(
-        'When a ray hits an atom, it is indicated with a red marker.')
-    detour_text = StringProperty(
-        'The fields surrounding atoms can redirect passing rays. If a ray encounters an atomic field, it will be '
-        'redirected away from the atom.')
+        'You cannot see the rays as they travel through the black box, but their fates are '
+        'logged on its outside. When a ray hits an atom, it is indicated with a [color=f15f5c]red marker.[/color]')
+    detour_text1 = StringProperty(
+        'The [color=f4a261]fields[/color] surrounding atoms can [color=f4a261]redirect rays[/color] passing though '
+        'adjacent spaces.')
+    detour_text2 = StringProperty(
+        'If a ray encounters an atomic field, it will be redirected 90 degrees away from the atom.')
     reflection_text1 = StringProperty(
-        'If a ray enters the space directly between two atoms, it will be caught between the two fields and reflected '
-        'back to its point of entry.')
+        'If a ray enters the space [color=fbdd64]directly between two atoms[/color], it will be caught between the two '
+        'fields and [color=fbdd64]reflected back[/color] to its point of entry.')
     reflection_text2 = StringProperty(
-        'But if your ray encounters two atoms directly next to each other, or more in a row, it will hit one before it '
-        'can be reflected away!')
+        'But if your ray encounters two atoms directly next to each other, or more in a row, '
+        '[color=f15f5c]it will hit[/color] one before it can be redirected!')
     reflection2_text1 = StringProperty(
-        'Atoms at the edge of the box can also reflect rays. If you attempt to beam a ray next to one of these atoms, '
-        'it will be reflected immediately. However, these atoms can still be hit by rays entering at the right spot.')
+        'Atoms at the [color=fee065]edge of the box[/color] can also reflect rays. If you attempt to beam a ray next '
+        'to one of these atoms, it will be [color=fee065]reflected immediately.[/color]')
     reflection2_text2 = StringProperty(
-        'Reflections are indicated with a yellow marker.')
+        'However, these atoms can still be hit by rays entering at the right spot. Reflections are indicated with a '
+        '[color=fee065]yellow marker.[/color]')
     miss_text1 = StringProperty(
-        'If a ray doesn\'t hit an atom along its journey, it will eventually leave the box. Though rays travel in'
-        ' straight lines, they their paths can be full of turns.')
+        'If a ray doesn\'t hit an atom along its journey, it will eventually [color=92d5e6]leave the box[/color]. The '
+        'points where a ray enters and exits the box will be [color=92d5e6]marked with matching symbols.[/color]')
     miss_text2 = StringProperty(
-        'The points where a ray enters and exits the box will be marked with matching symbols.')
+        'Though rays travel in straight lines, their [color=9b89b8]twisted paths can be deceiving![/color]')
     scoring_text1 = StringProperty(
-        'Your goal is to find all the atoms with the lowest score possible.\n'
-        'Each ray you beam into the box adds one point to your score. If that ray leaves the box, another point is '
-        'added to your score.')
+        'Your goal is to find all the atoms with the [color=6bc499]lowest score possible.[/color]\n\n'
+        '[color=fee065]Each ray[/color] you beam into the box adds [color=fee065]one point[/color] to your score.\n\n'
+        'If that ray [color=92d5e6]leaves the box, another point is added[/color] to your score.')
     scoring_text2 = StringProperty(
-        'At the end of the game, atoms are added to your score. Each atom you didn\'t find is worth five points!')
+        'At the end of the game, atoms are added to your score. [color=f15f5c]Each atom you didn\'t find is worth'
+        ' five points![/color]')
 
 
 class GameScreen(Screen):
@@ -423,6 +428,15 @@ class BlackboxApp(App):
 
         # Set window size
         Window.size = 540, 960
+
+        # Derive font sizes from window height
+        self.window_height = Window.height
+        self.largest = Window.height / 10
+        self.large = Window.height / 15
+        self.medium = Window.height / 20
+        self.small = Window.height / 25
+        self.smallest = Window.height / 30
+        self.tiny = Window.height / 40
 
         # Declare screen manager and add screens
         sm.add_widget(MenuScreen(name='menu_screen'))
