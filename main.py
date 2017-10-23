@@ -186,7 +186,7 @@ class GameScreen(Screen):
         """Reset game UI to initial state."""
 
         self.ids.score.text = '0'
-        self.ids.end_button.text = 'Submit'
+        self.ids.end_button.text = 'submit'
         self.ids.end_button.disabled = True
         self.ids.end_button.opacity = 0
 
@@ -226,10 +226,13 @@ class GameScreen(Screen):
         # Update score
         self.ids.score.text = str(game.score)
 
-        # Check for end game conditions! Make button visible.
+        # Check for end game conditions! Make button (in)visible.
         if len(game.guesslist) == atoms:
             self.ids.end_button.disabled = False
             self.ids.end_button.opacity = 1
+        else:
+            self.ids.end_button.disabled = True
+            self.ids.end_button.opacity = 0
 
     def symbol(self, number, color):
         """Set marker symbol."""
@@ -456,7 +459,7 @@ class BlackboxApp(App):
         game = self.game
 
         # Set window size on desktop
-        if platform.system == 'Windows':
+        if platform.system() == 'Windows':
             Window.size = 540, 960
 
         # Derive font sizes from window height
