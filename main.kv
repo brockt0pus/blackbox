@@ -96,6 +96,7 @@
             cols: 10
             rows: 10
             padding: root.width / root.height * 40
+            spacing: self.width / 250
 
         # End game button
         MenuButton:
@@ -199,6 +200,7 @@
             Image:
                 source: "assets/objective1.png"
                 size_hint_y: 2
+                allow_stretch:
             Instructions:
                 text: root.objective_text2
             NextPage:

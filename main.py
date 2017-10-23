@@ -16,7 +16,6 @@ from engine import Board
 
 # TODO: Android crashes on end screen
 # TODO: Images small on android instruction screen
-# TODO: Add padding between spaces and markers for more visible grid
 
 atlas = Atlas('assets/defaulttheme.atlas')
 # "Your fastest game ever" "Your fastest game since X"
