@@ -187,6 +187,10 @@
     size: self.texture_size
     markup: True
 
+<Diagram@Image>
+    size_hint_y: 2
+    allow_stretch: True
+
 <InstructionScreen>:
     name: 'instruct_screen'
 
@@ -199,8 +203,6 @@
                 text: root.objective_text1
             Image:
                 source: "assets/objective1.png"
-                size_hint_y: 2
-                allow_stretch:
             Instructions:
                 text: root.objective_text2
             NextPage:
@@ -208,13 +210,11 @@
             Label:
                 size_hint_y: 0.15
 
-
         Page:
             Instructions:
                 text: root.hit_text1
-            Image:
+            Diagram:
                 source: "assets/hit.png"
-                size_hint_y: 2
             Instructions:
                 text: root.hit_text2
             NextPage:
@@ -225,8 +225,7 @@
         Page:
             Instructions:
                 text: root.detour_text1
-            Image:
-                size_hint_y: 2
+            Diagram:
                 source: "assets/detour.png"
             Instructions:
                 text: root.detour_text2
@@ -238,8 +237,7 @@
         Page:
             Instructions:
                 text: root.reflection_text1
-            Image:
-                size_hint_y: 2
+            Diagram:
                 source: "assets/reflection1.png"
             Instructions:
                 text: root.reflection_text2
@@ -251,8 +249,7 @@
         Page:
             Instructions:
                 text: root.reflection2_text1
-            Image:
-                size_hint_y: 2
+            Diagram:
                 source: "assets/reflection2.png"
             Instructions:
                 text: root.reflection2_text2
@@ -264,8 +261,7 @@
         Page:
             Instructions:
                 text: root.miss_text1
-            Image:
-                size_hint_y: 2
+            Diagram:
                 source: "assets/miss.png"
             Instructions:
                 text: root.miss_text2
