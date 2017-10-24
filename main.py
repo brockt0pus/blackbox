@@ -18,7 +18,6 @@ from engine import Board
 # TODO: Images small on android instruction screen
 
 atlas = Atlas('assets/defaulttheme.atlas')
-# "Your fastest game ever" "Your fastest game since X"
 
 # Fixed crashing on android!
 Builder.load_file('main.kv')
@@ -188,6 +187,7 @@ class GameScreen(Screen):
         self.ids.end_button.text = 'submit'
         self.ids.end_button.disabled = True
         self.ids.end_button.opacity = 0
+        self.time = None
 
         board = self.ids.board
 
@@ -320,7 +320,7 @@ class GameScreen(Screen):
         elif game.game_over is True:
             end_screen = sm.get_screen('end_screen')
             end_screen.ids.end_score.text = str(game.score)
-            end_screen.ids.time.text = self.time
+            end_screen.ids.time.text = str(self.time)
 
             sm.current = 'end_screen'
 
