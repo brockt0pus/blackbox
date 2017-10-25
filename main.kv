@@ -162,6 +162,7 @@
             font_size: app.medium
 
             on_press: root.reset()
+            on_release: app.sm.get_screen('instruct_screen').ids.page_layout.page = 0
             on_release: app.sm.current = 'instruct_screen'
         Label:
             size_hint_y: 0.25
